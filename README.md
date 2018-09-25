@@ -2,12 +2,12 @@
 Encounter tool for D20
 
 ## Install
-Install dependencies
+Requires NodeJS >8.12.0. Clone the repository and install the dependencies:
 ```
-$ npm install
+$ git clone https://github.com/TheFenderStory/n-counter/ && npm install
 ```
 ## Usage
-Run the service
+Run the service:
 ```js
 $ npm start  
 ```
