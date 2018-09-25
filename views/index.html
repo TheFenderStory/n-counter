@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<%- include('partials/head.html'); %>
+
+<body>
+
+	<div class="site-wrapper">
+		<div class="site-wrapper-inner">
+			<div class="cover-container">
+				<!-- Nav body Start -->
+				<%- include('partials/nav.html'); %>
+				<!-- Nav body Start -->
+
+				<!-- Main body Start -->
+				<div class="row" style="padding-right: 3%;">
+					<div class="col-md-11">
+						<span id="usage">
+							Usage: Enter details on party and enemies below. Click next turn to update the current character making actions.
+						</span>
+					</div>
+					<div class="col-md-1">
+						<button id="next-turn" type="button" class="btn btn-success">Next Turn</button>
+					</div>
+				</div>
+				<div class="inner cover">
+					<%- include('partials/encounter.html'); %>
+				</div>
+				<!-- Main body End -->
+
+				<!-- Footer Start -->
+				<div class="mastfoot">
+					<div class="inner">
+						<p>&copy; Jared Grady - 2018</p>
+					</div>
+				</div>
+				<!-- Footer End -->
+			</div>
+		</div>
+	</div>
+
+</body>
+<%- include('partials/scripts.html'); %>
+</html>
