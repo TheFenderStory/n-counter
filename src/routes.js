@@ -1,7 +1,8 @@
 'use strict';
 /**
- * router
- * @license MIT license
+ * routes.js
+ * @author Jared Grady
+ * @license MIT
  */
 
 const express = require('express');

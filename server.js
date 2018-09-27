@@ -1,4 +1,9 @@
 'use strict';
+/**
+ * server.js
+ * @author Jared Grady
+ * @license MIT
+ */
 
 /* Begin by configuring variables */
 const express = require('express');
@@ -6,6 +11,7 @@ const app = express();
 const http = require('http').Server(app);
 const compression = require('compression');
 const helmet = require('helmet');
+const build = require('./build');
 const chalk = require('chalk');
 
 const port = process.env.PORT || 3000;
@@ -38,4 +44,7 @@ app.use(function(error, req, res, next) {
 http.listen(port, error => {
 	if (error) console.log(chalk.red(error));
 	console.log("Now listening on port: " + chalk.green(port));
+
+	/* build public files on startup */
+	build.start();
 });
