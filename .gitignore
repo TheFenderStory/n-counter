@@ -61,5 +61,5 @@ typings/
 .next
 
 # Build
-src/*-min.js
-css/*-min.css
+src/*min.js
+css/*min.css
