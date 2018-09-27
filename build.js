@@ -31,7 +31,7 @@ function minifyJs() {
  */
 function minifyCss() {
 	let file = "style.css";
-	fs.readFile(`public/src/${file}`, "utf8", (err, code) => {
+	fs.readFile(`public/css/${file}`, "utf8", (err, code) => {
 		if (err) throw err;
 		if (!file.includes("min")) {
 			fs.writeFile(`public/css/${file.substring(0, file.indexOf("."))}-min.css`, uglyCss.processString(code), function(err) {
