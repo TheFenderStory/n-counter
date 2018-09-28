@@ -4,6 +4,7 @@
   "description": "Encounter tool for D20",
   "main": "server.js",
   "scripts": {
+    "clean": "sh cleanup.sh",
     "test": "echo Not implemented",
     "start": "node server.js"
   },
