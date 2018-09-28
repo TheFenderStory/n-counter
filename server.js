@@ -46,5 +46,5 @@ http.listen(port, error => {
 	console.log("Now listening on port: " + chalk.green(port));
 
 	/* build public files on startup */
-	//build.start();
+	build.start();
 });
