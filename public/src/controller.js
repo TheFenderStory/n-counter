@@ -71,14 +71,41 @@ Controller.prototype.updateCharacter = function(target, stat, value) {
  * Saves an encounter to local storage.
 */
 Controller.prototype.saveEncounter = function(name) {
-	window.localStorage.setItem(name, , JSON.stringify(this.encounter));
+	window.localStorage.setItem("encounter-" + name, JSON.stringify(this.encounter));
 }
 
 /*
  * Loads an encounter to local storage.
 */
 Controller.prototype.loadEncounter = function(name) {
-	this.encounter = JSON.parse(window.localStorage.getItem(name));
+	var data = JSON.parse(window.localStorage.getItem(name));
+
+	this.encounter = new Encounter();
+	this.encounter.order = data.order;
+	this.encounter.characters = data.characters;
+	this.encounter.date = data.date;
+}
+
+/*
+ * Loads a list of all encounters in local storage.
+*/
+Controller.prototype.getEncounter = function(name) {
+	return JSON.parse(window.localStorage.getItem(name));
+}
+
+/*
+ * Loads a list of all encounters in local storage.
+*/
+Controller.prototype.getEncounters = function(name) {
+	var encounters = [];
+	for (var i = 0, len = window.localStorage.length; i < len; i++) {
+		var key = window.localStorage.key(i);
+
+		if (key.indexOf("encounter") > -1) {
+			encounters.push({name: key, data: this.getEncounter(key)});
+		}
+	}
+	return encounters;
 }
 
 /*

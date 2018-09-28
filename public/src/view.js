@@ -9,10 +9,35 @@ $("#home-button").click(function() {
 	$("#encounters-view").addClass("hidden");
 });
 
+// Shows the saved encounters
+function drawSavedEncounters() {
+	var encounters = controller.getEncounters();
+	var output = "";
+
+	for (var i = 0; i < encounters.length; i++) {
+		var encounter = encounters[i];
+		var date = "Not set";
+
+		if (encounter.data.hasOwnProperty("date")) {
+			date = encounter.data.date;
+		}
+
+		output +='<div class="row" style="text-align:center"><div class="col-md-2">' +
+		'</div> <div class="col-md-2" style="text-align:center">' + encounters[i].name +
+		'</div> <div class="col-md-2">' + date +
+		'</div> <div class="col-md-2" style="text-align:center">' + encounter.data.order.length +
+		'</div> <button data-target="' + encounters[i].name +
+		'" type="button" class="btn btn-primary import-encounter">Import Encounter </button>&nbsp&nbsp&nbsp<button data-target="' + encounters[i].name +
+		'" type="button" class="btn btn-danger delete-encounter">Remove - </button> </div></div><hr class="dotted"/></div>';
+	}
+	$("#saved-encounters").html(output);
+}
+
 // Handle toggling to encounters page
 $("#encounters-button").click(function() {
 	$("#home-view").addClass("hidden");
 	$("#encounters-view").removeClass("hidden");
+	drawSavedEncounters();
 });
 
 // Update the characters view
@@ -73,6 +98,22 @@ $('#characters').on('click', '.delete-char', function() {
 	updateCharacterUi();
 });
 
+// Import an encounter
+$('#saved-encounters').on('click', '.import-encounter', function() {
+	var target = $(this).data("target");
+	controller.loadEncounter(target);
+	$("#home-view").removeClass("hidden");
+	$("#encounters-view").addClass("hidden");
+	updateCharacterUi();
+});
+
+// Import an encounter
+$('#saved-encounters').on('click', '.delete-encounter', function() {
+	var target = $(this).data("target");
+	controller.removeEncounter(target);
+	drawSavedEncounters();
+});
+
 // Update list for name field changes
 $('#characters').on('focusout', '.name-field', function(e) {
 	var target = $(this).data("target");
@@ -92,8 +133,8 @@ $('#characters').on('focusout', '.notes-field', function(e) {
 });
 
 // Save encounters
-$("#save-encounter-btn").click(function()) {
+$("#save-encounter-btn").click(function() {
 	var name = $("#encounter-name-field").val();
 	$("#encounter-name-field").val("");
 	controller.saveEncounter(name);
-}
+});

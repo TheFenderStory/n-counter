@@ -8,6 +8,7 @@
 function Encounter() {
 	this.order = [];
 	this.characters = {};
+	this.date = new Date().toLocaleString();
 }
 
 /*
