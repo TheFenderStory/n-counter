@@ -3,7 +3,7 @@
 <%- include('partials/head.html'); %>
 
 <body>
-
+	<%- include('partials/modal.html'); %>
 	<div class="site-wrapper">
 		<div class="site-wrapper-inner">
 			<div class="cover-container">
@@ -12,18 +12,23 @@
 				<!-- Nav body Start -->
 
 				<!-- Main body Start -->
-				<div class="row" style="padding-right: 3%;">
-					<div class="col-md-11">
-						<span id="usage">
-							Usage: Enter details on party and enemies below. Click next turn to update the current character making actions.
-						</span>
+				<div id="home-view">
+					<div class="row" style="padding-right: 3%;">
+						<div class="col-md-11">
+							<span id="usage">
+								Usage: Enter details on party and enemies below. Click next turn to update the current character making actions.
+							</span>
+						</div>
+						<div class="col-md-1">
+							<button id="next-turn" type="button" class="btn btn-success">Next Turn</button>
+						</div>
 					</div>
-					<div class="col-md-1">
-						<button id="next-turn" type="button" class="btn btn-success">Next Turn</button>
+					<div class="inner cover">
+						<%- include('partials/encounter.html'); %>
 					</div>
 				</div>
-				<div class="inner cover">
-					<%- include('partials/encounter.html'); %>
+				<div id="encounters-view" class="hidden">
+					<%- include('partials/saved-encounters.html'); %>
 				</div>
 				<!-- Main body End -->
 
@@ -34,7 +39,7 @@
 					</div>
 				</div>
 				<!-- Footer End -->
-			</div>
+			</main>
 		</div>
 	</div>
 

@@ -16,14 +16,14 @@ function Encounter() {
 */
 Encounter.prototype.enqueue = function(character) {
 	for (var i = 0; i < this.order.length; i++) {
-		if (this.order[i].initiative < character.initiative) {
-			this.order.splice(i, 0, character);
+		if (this.characters[this.order[i]].initiative < character.initiative) {
+			this.order.splice(i, 0, character.name);
 			contain = true;
 			return;
 		}
 	}
 
-	this.order.push(character);
+	this.order.push(character.name);
 }
 
 /*
@@ -31,7 +31,7 @@ Encounter.prototype.enqueue = function(character) {
 */
 Encounter.prototype.next = function() {
 	var char = this.order.shift();
-	if (char.alive) {
+	if (this.characters[char].alive) {
 		this.order.push(char);
 	}
 }

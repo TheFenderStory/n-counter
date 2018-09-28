@@ -3,12 +3,24 @@
  */
 var controller = new Controller();
 
+// Handle toggling to home page
+$("#home-button").click(function() {
+	$("#home-view").removeClass("hidden");
+	$("#encounters-view").addClass("hidden");
+});
+
+// Handle toggling to encounters page
+$("#encounters-button").click(function() {
+	$("#home-view").addClass("hidden");
+	$("#encounters-view").removeClass("hidden");
+});
+
 // Update the characters view
 function updateCharacterUi() {
 	var output = "";
 
 	for (var i = 0; i < controller.encounter.order.length; i++) {
-		var cur = controller.getCharacter(controller.encounter.order[i].name);
+		var cur = controller.getCharacter(controller.encounter.order[i]);
 
 		if (cur.alive === true) {
 			if (i === 0) {
@@ -41,13 +53,17 @@ $("#add-char").click(function() {
 	var hp = $("#hp-field");
 	var notes = $("#notes-field");
 
-	controller.addCharacter(init.val(), name.val(), hp.val(), notes.val());
+	var status = controller.addCharacter(init.val(), name.val(), hp.val(), notes.val());
 
-	init.val("");
-	name.val("");
-	hp.val("");
-	notes.val("");
-	updateCharacterUi();
+	if (!status.code) {
+		alert("Failed to add character: " + name.val() + ". " + status.message + ".");
+	} else {
+		init.val("");
+		name.val("");
+		hp.val("");
+		notes.val("");
+		updateCharacterUi();
+	}
 });
 
 // Delete a character
@@ -74,3 +90,10 @@ $('#characters').on('focusout', '.notes-field', function(e) {
 	var target = $(this).data("target");
 	controller.updateCharacter(target, "notes", $(this).text());
 });
+
+// Save encounters
+$("#save-encounter-btn").click(function()) {
+	var name = $("#encounter-name-field").val();
+	$("#encounter-name-field").val("");
+	controller.saveEncounter(name);
+}
