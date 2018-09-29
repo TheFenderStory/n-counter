@@ -71,8 +71,12 @@ Controller.prototype.updateCharacter = function(target, stat, value) {
  * Saves an encounter to local storage.
 */
 Controller.prototype.saveEncounter = function(name) {
-	this.encounter.name = "encounter-" + name;
-	window.localStorage.setItem("encounter-" + name, JSON.stringify(this.encounter));
+	if (!(name.indexOf("encounter-") > -1)) {
+		name = "encounter-" + name;
+	}
+
+	this.encounter.name = name;
+	window.localStorage.setItem(name, JSON.stringify(this.encounter));
 }
 
 /*
