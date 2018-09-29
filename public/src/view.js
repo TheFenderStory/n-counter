@@ -138,3 +138,11 @@ $("#save-encounter-btn").click(function() {
 	$("#encounter-name-field").val("");
 	controller.saveEncounter(name);
 });
+
+// New Encounter
+$("#create-new-encounter").click(function() {
+	$("#home-view").removeClass("hidden");
+	$("#encounters-view").addClass("hidden");
+	controller = new Controller();
+	updateCharacterUi();
+});
