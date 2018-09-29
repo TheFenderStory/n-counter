@@ -54,7 +54,7 @@ function updateCharacterUi() {
 				output += '<div class="row"><div class="col-md-2 alive-field"></div>';
 			}
 
-			output +='<div class="col-md-2 init-field" data-target="' + cur.name + '">' + cur.initiative +
+			output +='<div contenteditable="true" class="col-md-2 init-field" data-target="' + cur.name + '">' + cur.initiative +
 			'</div> <div contenteditable="true" class="col-md-2 name-field"data-target="' + cur.name + '">' + cur.name +
 			'</div> <div contenteditable="true" class="col-md-2 hp-field" data-target="' + cur.name + '">' + cur.hp +
 			'</div> <div contenteditable="true" class="col-md-2 notes-field" data-target="' + cur.name + '">' + cur.notes +
@@ -63,6 +63,12 @@ function updateCharacterUi() {
 		}
 	}
 	$("#characters").html(output);
+
+	console.log(controller.encounter.name);
+	if (controller.encounter.name != null) {
+		$("#encounter-name-space").text(controller.encounter.name);
+		$("#encounter-name-space").data("encounter", controller.encounter.name);
+	}
 }
 
 // Next turn
@@ -107,11 +113,19 @@ $('#saved-encounters').on('click', '.import-encounter', function() {
 	updateCharacterUi();
 });
 
-// Import an encounter
+// Remove an encounter
 $('#saved-encounters').on('click', '.delete-encounter', function() {
 	var target = $(this).data("target");
 	controller.removeEncounter(target);
 	drawSavedEncounters();
+});
+
+// Update list for name field changes
+$('#characters').on('focusout', '.init-field', function(e) {
+	var target = $(this).data("target");
+	controller.updateCharacter(target, "initiative", parseInt($(this).text()));
+	controller.recalculateInit();
+	updateCharacterUi();
 });
 
 // Update list for name field changes
@@ -139,10 +153,19 @@ $("#save-encounter-btn").click(function() {
 	controller.saveEncounter(name);
 });
 
+// Prepopulate name field for prexisting getEncounters
+$("#save-encounter").click(function() {
+	if ($("#encounter-name-space").data("encounter") != null) {
+		$("#encounter-name-field").val($("#encounter-name-space").data("encounter"));
+	}
+});
+
 // New Encounter
 $("#create-new-encounter").click(function() {
 	$("#home-view").removeClass("hidden");
 	$("#encounters-view").addClass("hidden");
+	$("#encounter-name-space").text("New Encounter");
+	$("#encounter-name-space").data("encounter", "");
 	controller = new Controller();
 	updateCharacterUi();
 });

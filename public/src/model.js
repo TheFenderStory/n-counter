@@ -9,6 +9,7 @@ function Encounter() {
 	this.order = [];
 	this.characters = {};
 	this.date = new Date().toLocaleString();
+	this.name = null;
 }
 
 /*
@@ -52,6 +53,17 @@ Encounter.prototype.front = function() {
 */
 Encounter.prototype.isEmpty = function() {
 	return this.order.length === 0;
+}
+
+/*
+ * Returns true if the queue is empty
+*/
+Encounter.prototype.recalculateInit = function() {
+	var keys = Object.keys(this.characters);
+	this.order = [];
+	for (var i = 0; i < keys.length; i++) {
+		this.enqueue(this.characters[keys[i]]);
+	}
 }
 
 /*

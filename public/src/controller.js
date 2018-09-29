@@ -10,7 +10,7 @@ function Controller() {
 };
 
 /*
- * Adds a new character to the model
+ * Getter for the encounter
 */
 Controller.prototype.encounter = function(init, name, hp, notes) {
 	return this.encounter;
@@ -71,6 +71,7 @@ Controller.prototype.updateCharacter = function(target, stat, value) {
  * Saves an encounter to local storage.
 */
 Controller.prototype.saveEncounter = function(name) {
+	this.encounter.name = "encounter-" + name;
 	window.localStorage.setItem("encounter-" + name, JSON.stringify(this.encounter));
 }
 
@@ -84,6 +85,10 @@ Controller.prototype.loadEncounter = function(name) {
 	this.encounter.order = data.order;
 	this.encounter.characters = data.characters;
 	this.encounter.date = data.date;
+
+	if (data.hasOwnProperty("name")) {
+		this.encounter.name = data.name;
+	}
 }
 
 /*
@@ -113,4 +118,11 @@ Controller.prototype.getEncounters = function(name) {
 */
 Controller.prototype.removeEncounter = function(name) {
 	window.localStorage.removeItem(name);
+}
+
+/*
+ * Reorders the initiative queue after an update
+*/
+Controller.prototype.recalculateInit = function() {
+	this.encounter.recalculateInit();
 }
