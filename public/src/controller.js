@@ -56,6 +56,15 @@ Controller.prototype.addCharacter = function(init, name, hp, notes) {
 /*
  * Returns a character from the table.
 */
+Controller.prototype.removeCharacter = function(target) {
+	if (this.encounter.characters.hasOwnProperty(target)) {
+		this.encounter.removeCharacter(target);
+	}
+}
+
+/*
+ * Returns a character from the table.
+*/
 Controller.prototype.getCharacter = function(target) {
 	return this.encounter.characters[target];
 }

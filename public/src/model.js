@@ -29,6 +29,17 @@ Encounter.prototype.enqueue = function(character) {
 }
 
 /*
+ * Removes a character from the table
+*/
+Encounter.prototype.removeCharacter = function(target) {
+	var index = this.order.indexOf(target);
+	if (index !== -1) {
+		this.order.splice(index, 1);
+	}
+	delete this.characters[target];
+}
+
+/*
  * Moves the current front character to the back of the queue
 */
 Encounter.prototype.next = function() {

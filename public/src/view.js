@@ -100,7 +100,7 @@ $("#add-char").click(function() {
 // Delete a character
 $('#characters').on('click', '.delete-char', function() {
 	var target = $(this).data("target");
-	controller.updateCharacter(target, "alive", false);
+	controller.removeCharacter(target);
 	updateCharacterUi();
 });
 
